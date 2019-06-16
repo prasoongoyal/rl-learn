@@ -4,11 +4,6 @@ import torch
 import pickle
 import string
 import os
-# from data_split import DataSplit
-import pdb
-
-# GLOVE_FILEPATH = 'learn/lang_enc_pretrained/glove/glove.6B.300d.txt'
-# ACTIONS_FILEPATH = 'learn/data/actions.txt'
 
 # =============================== INFERSENT ===============================
 
@@ -123,11 +118,7 @@ def load_annotations_file(filename):
             sentences.append(sentence)
     return clip_ids, sentences
 
-
-
 def main(data_dir, lang_enc_pretrained, output_dir):
-    # clip_to_actions = load_actions(data_dir)
-
     train_clip_ids, train_sentences = load_annotations_file(os.path.join(
         data_dir, 'train_annotations.txt'))
     test_clip_ids, test_sentences = load_annotations_file(os.path.join(
@@ -141,27 +132,17 @@ def main(data_dir, lang_enc_pretrained, output_dir):
     glove_embeddings_train = glove.generate_embeddings(train_sentences)
     onehot_embeddings_train = onehot.generate_embeddings(train_sentences)
 
-    # split = DataSplit()
     train_data = []
-    # valid_data = []
     for idx in range(len(train_clip_ids)):
         clip_id = train_clip_ids[idx]
         data_pt = {}
         data_pt['clip_id'] = clip_id
-        # data_pt['actions'] = clip_to_actions[clip_id]
         data_pt['sentence'] = train_sentences[idx]
         data_pt['glove'] = glove_embeddings_train[idx]
         data_pt['infersent'] = infersent_embeddings_train[idx]
         data_pt['onehot'] = onehot_embeddings_train[idx]
         train_data.append(data_pt)
-        # side = split.clip_id_to_side(clip_id)
-        # if side == 'L':
-        #     valid_data.append(data_pt)
-        # elif side == 'R' or side == 'C':
-        #     train_data.append(data_pt)
-    print (len(train_data))
     pickle.dump(train_data, open(os.path.join(output_dir, 'train_lang_data.pkl'), 'wb'))
-    # pickle.dump(valid_data, open(os.path.join(output_dir, 'valid_data.pkl'), 'wb'))
 
     infersent_embeddings_test = infersent.generate_embeddings(test_sentences)
     glove_embeddings_test = glove.generate_embeddings(test_sentences)
@@ -172,13 +153,11 @@ def main(data_dir, lang_enc_pretrained, output_dir):
         clip_id = test_clip_ids[idx]
         data_pt = {}
         data_pt['clip_id'] = clip_id
-        # data_pt['actions'] = None
         data_pt['sentence'] = test_sentences[idx]
         data_pt['glove'] = glove_embeddings_test[idx]
         data_pt['infersent'] = infersent_embeddings_test[idx]
         data_pt['onehot'] = onehot_embeddings_test[idx]
         test_data.append(data_pt)
-    print (len(test_data))
     pickle.dump(test_data, open(os.path.join(output_dir, 'test_lang_data.pkl'), 'wb'))
 
 
@@ -192,7 +171,4 @@ if __name__ == '__main__':
     parser.add_argument('--lang_enc_dir', type=str, default='./lang_enc_pretrained',
         help='directory for pretrained language encoder models')
     args = parser.parse_args()
-    # train_outfile = '/scratch/cluster/pgoyal/tmp/processed_data_train.pkl'
-    # valid_outfile = '/scratch/cluster/pgoyal/tmp/processed_data_valid.pkl'
-    # main(sent_file, train_outfile, valid_outfile)
     main(args.data_dir, args.lang_enc_dir, args.output_dir)
