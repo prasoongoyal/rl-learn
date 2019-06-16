@@ -26,14 +26,14 @@ class Data(object):
     def compute_nonzero_actions(self, clip_id, r, s):
         clip_id = clip_id.strip()
         r, s = min(r, s), max(r, s)
-        actions = self.clip_to_actions[clip_id.decode()][r:s]
+        actions = self.clip_to_actions[clip_id][r:s]
         n_nonzero = sum([1 if (a>=2 and a<=5) else 0 for a in actions])
         return n_nonzero
 
     def create_action_vector(self, clip_id, r, s):
         clip_id = clip_id.strip()
         r, s = min(r, s), max(r, s)
-        actions = self.clip_to_actions[clip_id.decode()][r:s]
+        actions = self.clip_to_actions[clip_id][r:s]
         action_vector = []
         for i in range(N_ACTIONS):
             action_vector.append(sum(map(lambda x:1. if x == i else 0., actions)))
@@ -105,7 +105,7 @@ class Data(object):
         all_frames = []
         for i in range(n):
             clip = np.random.choice(len(pool))
-            clip_no = eval((pool[clip]['clip_id'].split(b'_')[-1])[:-4])
+            clip_no = eval((pool[clip]['clip_id'].split('_')[-1])[:-4])
             r = np.random.choice(TRAJ_LEN)
             s = np.random.choice(TRAJ_LEN)
             r, s = min(r, s), max(r, s)

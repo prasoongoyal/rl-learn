@@ -106,15 +106,15 @@ class Partition:
         return all(elem in b for elem in a)
 
     def clip_id_to_side(self, clip_id):
-        vidid = clip_id.split(b'/')[0]
-        start = int(eval(clip_id.split(b'_')[-1][:-4]) * 50)
+        vidid = clip_id.split('/')[0]
+        start = int(eval(clip_id.split('_')[-1][:-4]) * 50)
         end = start + 150
         curr_indices = range(start,end)
-        if self.is_sublist_of(curr_indices, self.side_labels[vidid.decode()]['L']):
+        if self.is_sublist_of(curr_indices, self.side_labels[vidid]['L']):
             return 'L'
-        if self.is_sublist_of(curr_indices, self.side_labels[vidid.decode()]['R']):
+        if self.is_sublist_of(curr_indices, self.side_labels[vidid]['R']):
             return 'R'
-        if self.is_sublist_of(curr_indices, self.side_labels[vidid.decode()]['C']):
+        if self.is_sublist_of(curr_indices, self.side_labels[vidid]['C']):
             return 'C'
         return None
 

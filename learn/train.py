@@ -23,9 +23,9 @@ parser.add_argument('--classifier_size', type=int, default=128,
     help='classifier_size')
 parser.add_argument('--batch_size', type=int, default=32, 
     help='batch_size')
-parser.add_argument('--data_file', default='./data/lang-data.pkl', 
+parser.add_argument('--data_file', default='./data/train_lang_data.pkl', 
     help='data file to use')
-parser.add_argument('--actions_file', default='./data/action-labels.txt', 
+parser.add_argument('--actions_file', default='./data/action_labels.txt', 
     help='action file to use')
 parser.add_argument('--save_path', default=None,
     help='Model save path')
