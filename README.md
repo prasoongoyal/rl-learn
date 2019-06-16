@@ -2,7 +2,7 @@
 
 This is the code for our IJCAI 2019 paper [Using Natural Language for Reward Shaping in Reinforcement Learning](https://arxiv.org/abs/1903.02020).
 
-## Instructions for running the code:
+## Running the code:
 
 1. Clone this repository and install dependencies using the included `requirements.txt` file. The code requires Python 3.
 2. Download preprocessed data:
@@ -22,7 +22,7 @@ python rl/main.py --expt_id=<expt_id> --descr_id=<descr_id> --lang_coeff=1.0 --l
 
 Raw data can be downloaded from http://www.cs.utexas.edu/~pgoyal/atari-lang.zip. The directories contain frames from Montezuma's revenge (downloaded from [Atari Grand Challenge dataset](http://atarigrandchallenge.com/data)). The file annotations.txt contains pairs of clip ids and natural language descriptions. The clip id is formatted as <directory_name>/<start_frame>-<end_frame>.mp4
 
-### Preprocessing the data 
+Preprocessed data can be generated from the raw data as follows:
 1. Download the [InferSent](https://github.com/facebookresearch/InferSent) model using the following command:
 ```
 wget http://www.cs.utexas.edu/~pgoyal/ijcai19/infersent1.pkl -O ./lang_enc_pretrained/InferSent/encoder/infersent1.pkl
