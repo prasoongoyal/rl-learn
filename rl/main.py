@@ -114,7 +114,7 @@ if __name__ == "__main__":
     parser.add_argument('--expt_id', type=int, 
         help='expt name')
     parser.add_argument('--lang_enc', default=None, 
-        help='language encoder')
+        help='glove | onehot | infersent')
     parser.add_argument('--descr_id', type=int, default=None, 
         help='descr_id')
     parser.add_argument('--lang_coeff', type=float, default=0., 
