@@ -195,7 +195,7 @@ class GymEnvironment(object):
         with self.lang_net_graph.as_default():
             self.lang_network = LearnModel('predict', None, self.args.model_dir)
         sentence_id = (self.args.expt_id-1) * 3 + (self.args.descr_id-1)
-        lang_data = pickle.load(open('./data/test_data.pkl', 'rb'), encoding='bytes')
+        lang_data = pickle.load(open('./data/test_lang_data.pkl', 'rb'), encoding='bytes')
         self.lang = lang_data[sentence_id][self.args.lang_enc]
 
     def compute_language_reward(self):

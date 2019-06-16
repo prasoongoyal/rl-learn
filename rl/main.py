@@ -111,12 +111,19 @@ def main(args):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--expt_id', type=int, help='Expt name')
-    parser.add_argument('--lang_enc', default=None, help='Language encoder')
-    parser.add_argument('--descr_id', type=int, default=None, help='descr_id')
-    parser.add_argument('--lang_coeff', type=float, default=0., help='lang_coeff')
-    parser.add_argument('--model_dir', default=None, help='model file to use')
-    parser.add_argument('--max_timesteps', type=int, default=500000, help='')
-    parser.add_argument('--noise', type=float, default=0, help='')
+    parser.add_argument('--expt_id', type=int, 
+        help='expt name')
+    parser.add_argument('--lang_enc', default=None, 
+        help='language encoder')
+    parser.add_argument('--descr_id', type=int, default=None, 
+        help='descr_id')
+    parser.add_argument('--lang_coeff', type=float, default=0., 
+        help='lang_coeff')
+    parser.add_argument('--model_dir', default=None, 
+        help='model file to use')
+    parser.add_argument('--max_timesteps', type=int, default=500000, 
+        help='number of timesteps to run RL for')
+    parser.add_argument('--noise', type=float, default=0, 
+        help=('noise to add to LEARN module prediction')
     args = parser.parse_args()
     main(args)
