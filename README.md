@@ -34,3 +34,7 @@ wget http://www.cs.utexas.edu/~pgoyal/ijcai19/infersent1.pkl -O ./lang_enc_pretr
 python scripts/preprocess_data.py
 ```
 This will create files `train_lang_data.pkl` and `test_lang_data.pkl` in the `./data` directory.
+
+## Acknowledgements:
+
+The RL code is adapted from the following implementation -- https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail.
