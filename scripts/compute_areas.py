@@ -22,14 +22,10 @@ def compute_area(filename, max_steps=500000.):
     if len(parts) != 11:
       continue
     x.append(eval(parts[1][:-1]))
-    try:
-      y.append(eval(parts[5]))
-    except ZeroDivisionError:
-      y.append(0.0)
+    y.append(eval(parts[5]))
     area += (y[-1] + y[-2])/2.0 * (x[-1] - x[-2])
     if x[-1] >= max_steps:
       break
-    # print (parts[7], parts[9])
   return (area / max_steps)
 
 if __name__ == "__main__":
