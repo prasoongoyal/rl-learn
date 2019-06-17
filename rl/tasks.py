@@ -5,8 +5,6 @@ class Task(object):
     self.env = env
     self.env.new_game()
     self.start = self.env.load_state('./rl/game_state_ckpts/{}.npy'.format(start))
-    r = randint(0, 26)
-    self.env.repeat_action(0, r)
 
   def finished():
     pass
