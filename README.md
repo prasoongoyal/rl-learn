@@ -1,4 +1,4 @@
-# rl-lang-action-reward-network
+# rl-learn
 
 This is the code for our IJCAI 2019 paper [Using Natural Language for Reward Shaping in Reinforcement Learning](https://arxiv.org/abs/1903.02020).
 
