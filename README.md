@@ -7,7 +7,6 @@ This is the code for our IJCAI 2019 paper [Using Natural Language for Reward Sha
 1. Clone this repository and install dependencies using the included `requirements.txt` file. The code requires Python 3.
 2. Download preprocessed data:
 ```
-mkdir data
 wget http://www.cs.utexas.edu/~pgoyal/ijcai19/train_lang_data.pkl -O ./data/train_lang_data.pkl
 wget http://www.cs.utexas.edu/~pgoyal/ijcai19/test_lang_data.pkl -O ./data/test_lang_data.pkl
 ```
