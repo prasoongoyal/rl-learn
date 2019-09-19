@@ -34,13 +34,22 @@ class Model(nn.Module):
         elif args.lang_enc == 'onehot':
             self.lang_enc_emb = nn.Embedding(VOCAB_SIZE, GLOVE_DIM)
             nn.init.xavier_uniform(self.lang_enc_emb.weight)
-            self.lang_enc_lstm = nn.LSTM(GLOVE_DIM, args.lang_enc_size, num_layers=1, batch_first=True)
+            self.lang_enc_lstm = nn.LSTM(
+                GLOVE_DIM, 
+                args.lang_enc_size, 
+                num_layers=1, 
+                batch_first=True)
         elif args.lang_enc == 'glove':
-            self.lang_enc_lstm = nn.LSTM(GLOVE_DIM, args.lang_enc_size, num_layers=1, batch_first=True)
+            self.lang_enc_lstm = nn.LSTM(
+                GLOVE_DIM, 
+                args.lang_enc_size, 
+                num_layers=1, 
+                batch_first=True)
         else:
             raise NotImplementedError
 
-        self.classifier_linear1 = nn.Linear(args.action_enc_size + args.lang_enc_size, args.classifier_size)
+        self.classifier_linear1 = nn.Linear(
+            args.action_enc_size + args.lang_enc_size, args.classifier_size)
         self.classifier_linear2 = nn.Linear(args.classifier_size, args.classifier_size)
         self.classifier_linear3 = nn.Linear(args.classifier_size, 2)
         self.classifier_bn1 = nn.BatchNorm1d(args.classifier_size)
@@ -59,7 +68,6 @@ class Model(nn.Module):
 
             lang = nn.utils.rnn.pack_padded_sequence(lang, lengths, batch_first=True)
             output, (h_n, c_n) = self.lang_enc_lstm(lang)
-            # lang_enc = h_n[-1]
             output = nn.utils.rnn.pad_packed_sequence(output, batch_first=True)[0]
             output = torch.sum(output, dim=1)
             lang_encoded = output / torch.unsqueeze(lengths, 1).float().cuda()
@@ -68,7 +76,6 @@ class Model(nn.Module):
             lang = nn.Dropout(p=0.2)(lang)
             lang = nn.utils.rnn.pack_padded_sequence(lang, lengths, batch_first=True)
             output, (h_n, c_n) = self.lang_enc_lstm(lang)
-            # lang_enc = h_n[-1]
             output = nn.utils.rnn.pad_packed_sequence(output, batch_first=True)[0]
             output = torch.sum(output, dim=1)
             lang_encoded = output / torch.unsqueeze(lengths, 1).float().cuda()
@@ -88,7 +95,10 @@ class LearnModel(object):
             self.args = args
             self.data = Data(args)
             self.model = Model(args).cuda()
-            self.optimizer = optim.Adam(self.model.parameters(), lr=self.args.lr, weight_decay=self.args.weight_decay)
+            self.optimizer = optim.Adam(
+                self.model.parameters(), 
+                lr=self.args.lr, 
+                weight_decay=self.args.weight_decay)
         elif mode == 'predict':
             ckpt = torch.load(model_dir)
             self.args = ckpt['args']
@@ -197,7 +207,13 @@ class LearnModel(object):
 
             if acc_valid > best_val_acc:
                 if self.args.save_path:
-                    state = {'args': self.args, 'epoch': epoch, 'best_val_acc': best_val_acc, 'state_dict': self.model.state_dict(), 'optimizer': self.optimizer.state_dict()}
+                    state = {
+                        'args': self.args, 
+                        'epoch': epoch, 
+                        'best_val_acc': best_val_acc, 
+                        'state_dict': self.model.state_dict(), 
+                        'optimizer': self.optimizer.state_dict()
+                    }
                     torch.save(state, self.args.save_path)
 
     def predict(self, action_list, lang_list):
