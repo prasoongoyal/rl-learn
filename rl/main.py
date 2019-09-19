@@ -119,7 +119,7 @@ if __name__ == "__main__":
         help='descr_id')
     parser.add_argument('--lang_coeff', type=float, default=0., 
         help='lang_coeff')
-    parser.add_argument('--model_dir', default=None, 
+    parser.add_argument('--model_file', default=None, 
         help='model file to use')
     parser.add_argument('--max_timesteps', type=int, default=500000, 
         help='number of timesteps to run RL for')

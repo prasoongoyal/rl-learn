@@ -191,9 +191,7 @@ class GymEnvironment(object):
         return self.state, goal_reached
 
     def setup_language_network(self):
-        self.lang_net_graph = tf.Graph()
-        with self.lang_net_graph.as_default():
-            self.lang_network = LearnModel('predict', None, self.args.model_dir)
+        self.lang_network = LearnModel('predict', self.args, self.args.model_file)
         sentence_id = (self.args.expt_id-1) * 3 + (self.args.descr_id-1)
         lang_data = pickle.load(open('./data/test_lang_data.pkl', 'rb'), encoding='bytes')
         self.lang = lang_data[sentence_id][self.args.lang_enc]
@@ -202,8 +200,7 @@ class GymEnvironment(object):
         if self.n_steps < 2:
             logits = None
         else:
-            with self.lang_net_graph.as_default():
-                logits = self.lang_network.predict([self.action_vector], [self.lang])[0]
+            logits = self.lang_network.predict([self.action_vector], [self.lang])
 
         if logits is None:
             self.potentials_list.append(0.)

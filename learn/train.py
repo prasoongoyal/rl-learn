@@ -27,7 +27,7 @@ parser.add_argument('--data_file', default='./data/train_lang_data.pkl',
     help='data file to use')
 parser.add_argument('--actions_file', default='./data/action_labels.txt', 
     help='action file to use')
-parser.add_argument('--save_path', default=None,
+parser.add_argument('--model_file', default=None,
     help='Model save path')
 args = parser.parse_args()
 

@@ -13,8 +13,8 @@ wget http://www.cs.utexas.edu/~pgoyal/ijcai19/test_lang_data.pkl -O ./data/test_
 3. Run the LEARN module training and RL training using the following commands:
 ```
 mkdir learn_model
-python learn/train.py --lang_enc=onehot --save_path=./learn_model
-python rl/main.py --expt_id=<expt_id> --descr_id=<descr_id> --lang_coeff=1.0 --lang_enc=onehot --model_dir=./learn_model
+python learn/train.py --lang_enc=onehot --model_file=./learn_model/model.pt
+python rl/main.py --expt_id=<expt_id> --descr_id=<descr_id> --lang_coeff=1.0 --lang_enc=onehot --model_file=./learn_model/model.pt
 ```
 
 ## Data
